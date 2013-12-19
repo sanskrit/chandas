@@ -75,6 +75,9 @@ class TestLineGana(MeterTest):
     def check(self, scanned, result):
         return Line(scan=scanned).gana == result
 
+    def test_empty(self):
+        self.yes('', '')
+
     def test_single_gana(self):
         yes = self.yes
         yes('LGG', 'y')
@@ -200,6 +203,9 @@ class TestStartsWithConjunct(MeterTest):
     def check(self, raw):
         return Line(raw).starts_with_conjunct
 
+    def test_empty(self):
+        self.no('')
+
     def test_vowels(self):
         for v in self.vowels:
             self.no(v)
@@ -246,6 +252,10 @@ class TestVerseScan:
         yakzaScakre janakatanayAsnAnapuRyodakezu
         snigDacCAyAtaruzu vasatiM rAmagiryASramezu .. 1 ..
         """
+
+    def test_empty(self):
+        verse = Verse('')
+        assert verse.scan == []
 
     def test_scan(self):
         verse = Verse(self.megh_1_1)
