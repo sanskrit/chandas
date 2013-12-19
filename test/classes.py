@@ -198,7 +198,7 @@ class TestLineScan(MeterTest):
         self.yes(token, 'GGGGLLLLLGGLGGLGG')
 
 
-class TestStartsWithConjunct(MeterTest):
+class TestLineStartsWithConjunct(MeterTest):
 
     def check(self, raw):
         return Line(raw).starts_with_conjunct
@@ -244,7 +244,7 @@ class TestLineSyllables(MeterTest):
         yes('kArtsnyam', 'kA rtsnyam')
 
 
-class TestVerseScan:
+class TestVerseScan(MeterTest):
 
     megh_1_1 = """
         kaScitkAntAvirahaguruRAsvADikArapramattaH
@@ -253,12 +253,13 @@ class TestVerseScan:
         snigDacCAyAtaruzu vasatiM rAmagiryASramezu .. 1 ..
         """
 
+    def check(self, raw, result):
+        return Verse(raw).scan == result
+
     def test_empty(self):
-        verse = Verse('')
-        assert verse.scan == []
+        self.yes('', [])
 
     def test_scan(self):
-        verse = Verse(self.megh_1_1)
         scan = ['GGGGLLLLLGGLGGLGG'] * 4
         scan[-1] = scan[-1][:-1] + 'L'
-        assert verse.scan == scan
+        self.yes(self.megh_1_1, scan)
