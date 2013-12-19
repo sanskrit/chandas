@@ -105,6 +105,38 @@ class TestLineGana(MeterTest):
         yes('GGGLLGLGLLLGGGLGGLG', 'msjsttg')  # śārdūlavikrīḍita
 
 
+class TestLineMatraCount(MeterTest):
+
+    def check(self, scanned, result):
+        return Line(scan=scanned).matra_count == result
+
+    def test_empty(self):
+        self.yes('', 0)
+
+    def test_scan_single_syllable(self):
+        yes = self.yes
+        yes('L', 1)
+        yes('G', 2)
+
+    def test_scan_multiple(self):
+        yes = self.yes
+        yes('LL', 2)
+        yes('LG', 3)
+        yes('GL', 3)
+        yes('GG', 4)
+
+    def test_scan_long(self):
+        self.yes('LLLLGLLGG', 12)
+
+    def test_raw_input(self):
+        def yes(raw, result):
+            assert Line(raw).matra_count == result
+        yes('a', 1)
+        yes('ka', 1)
+        yes('A', 2)
+        yes('kA', 2)
+
+
 class TestLineScan(MeterTest):
 
     def check(self, raw, result):

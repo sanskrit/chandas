@@ -107,6 +107,14 @@ class Line(object):
         return ''.join(gana)
 
     @property
+    def matra_count(self):
+        """Return the matra count of this line.
+
+        Guru counts for 2. Laghu counts for 1.
+        """
+        return sum(1 if x == 'L' else 2 for x in self.scan)
+
+    @property
     def scan(self):
         """Return the metrical scan of the line.
 
