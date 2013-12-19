@@ -5,12 +5,23 @@ import re
 
 class SLP:
 
-    """Stores SLP letters."""
+    """Stores SLP1 letters."""
 
+    #: Every sound in SLP1, excluding accents and nasality
     ALL = 'aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvzSshMH'
+
+    #: Short vowels. Short and long vowels have different impacts on
+    #: syllable weight.
     SHORT_VOWELS = 'aiufx'
+
+    #: Long vowels. Short and long vowels have different impacts on
+    #: syllable weight.
     LONG_VOWELS = 'AIUFXeEoO'
+
+    #: All vowels
     VOWELS = SHORT_VOWELS + LONG_VOWELS
+
+    #: Consonants. This excludes ``'M'`` and ``'H'``
     CONSONANTS = 'kKgGNcCjJYwWqQRtTdDnpPbBmyrlvzSsh'
 
 
@@ -18,9 +29,21 @@ class Meter:
 
     """Stores syllable weights."""
 
+    #: Denotes a heavy syllable ('guru')
     HEAVY = 'G'
+
+    #: Denotes a light syllable ('laghu')
     LIGHT = 'L'
+
+    #: Denotes an arbitrary syllable
     EITHER = '.'
+
+    #: Maps a triplet of syllable weights to a traditional "gaṇa" name.
+    #:
+    #: These triplets have the mnemonic "yamātārājabhānasalagāḥ", where
+    #: a consonant and the two weights after it denote the weight of
+    #: the appropriate triplet. Thus "ya mā tā" -> 'LGG'. Note that
+    #: laghu ('la') and guru ('gāḥ') are encoded as well.
     GANAS = {
         'LGG': 'y',
         'GGG': 'm',
@@ -43,25 +66,31 @@ class Line(object):
 
     def __init__(self, raw=None, **kw):
         self.raw = raw
+
         if 'scan' in kw:
             self._scan = kw['scan']
 
     @property
     def clean(self):
-        """Return everything but SLP1 letters."""
+        """Return the raw input with all non-SLP1 tokens removed.
+
+        That includes whitespace, too!
+        """
         clean = re.sub('[^%s]+' % SLP.ALL, '', self.raw)
         return clean
 
     @property
     def ends_with_laghu(self):
-        scan = self.scan
-        return scan and scan[-1] == Meter.LIGHT
+        """Return whether the line ends with a light syllable."""
+        return self.scan and self.scan[-1] == Meter.LIGHT
 
     @property
     def gana(self):
-        """Convert some scanned input to "ganas" (y m t r j B n s)
+        """Return the gaṇas that compose this line.
 
-        Laghu and guru are represented as `l` and `g`.
+        The result is returned as a string, with each letter denoting
+        a gaṇa. The full alphabet used is ``'ymtrjBnslg'``, where ``'l'``
+        denotes laghu and ``'g'`` denotes guru.
         """
         converter = Meter.GANAS
         gana = []
@@ -109,11 +138,12 @@ class Line(object):
 
     @property
     def starts_with_conjunct(self):
+        """Return whether the line starts with a consonant cluster."""
         return re.match('[%s]{2,}' % SLP.CONSONANTS, self.clean)
 
     @property
     def syllables(self):
-        """Split the given string into syllables.
+        """Split the line into syllables.
 
         Each syllable ends with one of the following:
 
@@ -139,6 +169,7 @@ class Verse(object):
 
     def __init__(self, raw):
         self.raw = raw
+
         clean_lines = [x for x in raw.strip().splitlines() if x]
         self.lines = [Line(x) for x in clean_lines]
 
