@@ -1,59 +1,16 @@
 # -*- coding: utf-8 -*-
+"""
+    chandas.wrappers
+    ~~~~~~~~~~~~~~~~
+
+    Classes for sanitizing and transforming raw data.
+
+    :license: MIT and BSD
+"""
 
 import re
 
-
-class SLP:
-
-    """Stores SLP1 letters."""
-
-    #: Every sound in SLP1, excluding accents and nasality
-    ALL = 'aAiIuUfFxXeEoOkKgGNcCjJYwWqQRtTdDnpPbBmyrlvzSshMH'
-
-    #: Short vowels. Short and long vowels have different impacts on
-    #: syllable weight.
-    SHORT_VOWELS = 'aiufx'
-
-    #: Long vowels. Short and long vowels have different impacts on
-    #: syllable weight.
-    LONG_VOWELS = 'AIUFXeEoO'
-
-    #: All vowels
-    VOWELS = SHORT_VOWELS + LONG_VOWELS
-
-    #: Consonants. This excludes ``'M'`` and ``'H'``
-    CONSONANTS = 'kKgGNcCjJYwWqQRtTdDnpPbBmyrlvzSsh'
-
-
-class Meter:
-
-    """Stores syllable weights."""
-
-    #: Denotes a heavy syllable ('guru')
-    HEAVY = 'G'
-
-    #: Denotes a light syllable ('laghu')
-    LIGHT = 'L'
-
-    #: Denotes an arbitrary syllable
-    EITHER = '.'
-
-    #: Maps a triplet of syllable weights to a traditional "gaṇa" name.
-    #:
-    #: These triplets have the mnemonic "yamātārājabhānasalagāḥ", where
-    #: a consonant and the two weights after it denote the weight of
-    #: the appropriate triplet. Thus "ya mā tā" -> 'LGG'. Note that
-    #: laghu ('la') and guru ('gāḥ') are encoded as well.
-    GANAS = {
-        'LGG': 'y',
-        'GGG': 'm',
-        'GGL': 't',
-        'GLG': 'r',
-        'LGL': 'j',
-        'GLL': 'B',
-        'LLL': 'n',
-        'LLG': 's',
-    }
+from chandas.enums import SLP, Weights
 
 
 class Line(object):
@@ -79,7 +36,7 @@ class Line(object):
     @property
     def ends_with_laghu(self):
         """Return whether the line ends with a light syllable."""
-        return self.scan and self.scan[-1] == Meter.LIGHT
+        return self.scan and self.scan[-1] == Weights.LIGHT
 
     @property
     def gana(self):
@@ -89,7 +46,7 @@ class Line(object):
         a gaṇa. The full alphabet used is ``'ymtrjBnslg'``, where ``'l'``
         denotes laghu and ``'g'`` denotes guru.
         """
-        converter = Meter.GANAS
+        converter = Weights.GANAS
         gana = []
         n = 3
         for i in xrange(0, len(self.scan), n):
@@ -132,7 +89,7 @@ class Line(object):
         # Short vowels without conjunct
         data = re.sub('[%s][%s]*' % (short_v, cons), '.', data)
         # Convert to normal symbols
-        data = data.replace('_', Meter.HEAVY).replace('.', Meter.LIGHT)
+        data = data.replace('_', Weights.HEAVY).replace('.', Weights.LIGHT)
 
         return data
 
@@ -190,7 +147,7 @@ class Verse(object):
 
             odd_pada = i % 2 == 0
             if odd_pada and x.ends_with_laghu and next_is_conjunct:
-                returned.append(x.scan[:-1] + Meter.HEAVY)
+                returned.append(x.scan[:-1] + Weights.HEAVY)
             else:
                 returned.append(x.scan)
 

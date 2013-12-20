@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from chandas.classes import *
+from chandas.wrappers import *
 
 
 class MeterTest:
