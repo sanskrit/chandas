@@ -67,9 +67,6 @@ class Line(object):
     def __init__(self, raw=None, **kw):
         self.raw = raw
 
-        if 'scan' in kw:
-            self._scan = kw['scan']
-
     @property
     def clean(self):
         """Return the raw input with all non-SLP1 tokens removed.
@@ -120,10 +117,6 @@ class Line(object):
 
         Line-final laghu vowels are scanned as laghu.
         """
-        try:
-            return self._scan
-        except AttributeError:
-            pass
         cons = SLP.CONSONANTS
         short_v = SLP.SHORT_VOWELS
         long_v = SLP.LONG_VOWELS
@@ -141,7 +134,6 @@ class Line(object):
         # Convert to normal symbols
         data = data.replace('_', Meter.HEAVY).replace('.', Meter.LIGHT)
 
-        self._scan = data
         return data
 
     @property

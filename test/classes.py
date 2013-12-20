@@ -19,6 +19,9 @@ class MeterTest:
         """Return ``True`` or ``False``"""
         raise NotImplementedError
 
+    def scan2raw(self, scan):
+        return scan.replace('G', 'kA').replace('L', 'ka')
+
 
 class TestLineClean(MeterTest):
 
@@ -73,7 +76,8 @@ class TestLineEndsWithLaghu(MeterTest):
 class TestLineGana(MeterTest):
 
     def check(self, scanned, result):
-        return Line(scan=scanned).gana == result
+        raw = self.scan2raw(scanned)
+        return Line(raw).gana == result
 
     def test_empty(self):
         self.yes('', '')
@@ -108,7 +112,8 @@ class TestLineGana(MeterTest):
 class TestLineMatraCount(MeterTest):
 
     def check(self, scanned, result):
-        return Line(scan=scanned).matra_count == result
+        raw = self.scan2raw(scanned)
+        return Line(raw).matra_count == result
 
     def test_empty(self):
         self.yes('', 0)
@@ -127,14 +132,6 @@ class TestLineMatraCount(MeterTest):
 
     def test_scan_long(self):
         self.yes('LLLLGLLGG', 12)
-
-    def test_raw_input(self):
-        def yes(raw, result):
-            assert Line(raw).matra_count == result
-        yes('a', 1)
-        yes('ka', 1)
-        yes('A', 2)
-        yes('kA', 2)
 
 
 class TestLineScan(MeterTest):
