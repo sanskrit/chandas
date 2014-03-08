@@ -17,7 +17,7 @@ def full_classifier():
 
 def test_init():
     classifier = Classifier([])
-    assert classifier.vrttas == []
+    assert classifier.padyas == []
 
 
 def test_samavrtta(full_classifier):

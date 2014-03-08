@@ -1,4 +1,4 @@
-from chandas.vrttas import *
+from chandas.padyas import *
 
 
 class TestVrtta(object):

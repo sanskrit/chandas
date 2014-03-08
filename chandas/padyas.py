@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    chandas.vrttas
+    chandas.padyas
     ~~~~~~~~~~~~~~
 
     Classes for representing various metrical forms.
@@ -11,9 +11,19 @@
 import re
 
 
-class Vrtta(object):
+class Padya(object):
 
     """Abstract base class for a metrical form."""
+
+
+class Jati(Padya):
+
+    """Abstract class for moraic meters."""
+
+
+class Vrtta(Padya):
+
+    """Abstract class for syllabic meters."""
 
     def __init__(self, name, pattern):
         #: The name of the meter.

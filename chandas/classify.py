@@ -10,15 +10,15 @@
 
 import json
 
-from .vrttas import Ardhasamavrtta, Samavrtta, Vishamavrtta
+from .padyas import Ardhasamavrtta, Samavrtta, Vishamavrtta
 from .wrappers import Verse
 
 class Classifier(object):
 
     """Scans some raw input and identifies its meter."""
 
-    def __init__(self, vrttas):
-        self.vrttas = vrttas
+    def __init__(self, padyas):
+        self.padyas = padyas
 
     @classmethod
     def from_json_file(self, path):
@@ -34,12 +34,12 @@ class Classifier(object):
                 'ardhasamavrtta': Ardhasamavrtta,
                 'vishamavrtta': Vishamavrtta,
             }
-            vrttas = []
+            padyas = []
             for category, examples in data.iteritems():
                 cls = class_map[category]
                 for vrtta in examples:
-                    vrttas.append(cls(vrtta['name'], vrtta['pattern']))
-            return Classifier(vrttas)
+                    padyas.append(cls(vrtta['name'], vrtta['pattern']))
+            return Classifier(padyas)
 
     def classify(self, raw):
         """Identify the meter of some input.
@@ -48,7 +48,7 @@ class Classifier(object):
         """
         verse = Verse(raw)
         verse_scan = ''.join(verse.scan)
-        for vrtta in self.vrttas:
+        for vrtta in self.padyas:
             if vrtta.regex.match(verse_scan):
                 return vrtta
         return None
