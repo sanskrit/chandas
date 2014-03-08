@@ -22,19 +22,24 @@ class Vrtta(object):
         #: The scan for each pāda.
         self.scans = [self._clean(pada) for pada in pattern]
 
+    def __repr__(self):
+        return "<{}('{}')>".format(self.__class__.__name__, self.name)
+
     @classmethod
     def _clean(self, data):
         return re.sub('[^LG]', '', data)
 
-    def __repr__(self):
-        return "<{}('{}')>".format(self.__class__.__name__, self.name)
+    @classmethod
+    def _padanta_laghu(self, scan):
+        return scan[:-1] + '[LG]'
 
     @property
     def regex(self):
         """Return a regex to test if some input matches the vrtta."""
-        odd = self.scans[0]
-        even = self.scans[0][:-1] + '[LG]'
-        return re.compile(odd + even + odd + even)
+        scans = self.scans
+        regex_list = [scans[0], self._padanta_laghu(scans[1]),
+                      scans[2], self._padanta_laghu(scans[3])]
+        return re.compile(''.join(regex_list))
 
 
 class Samavrtta(Vrtta):

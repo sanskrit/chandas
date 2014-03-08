@@ -30,5 +30,25 @@
                 "G G G G L G G | L L L L L L G | G L G G L G G"
             ]
         }
+    ],
+    "ardhasamavrtta": [
+        {
+            "name": "upacitram",
+            "pattern": [
+                "L L G L L G L L G L G",
+                "G L L G L L G L L G G"
+            ]
+        }
+    ],
+    "vishamavrtta": [
+        {
+            "name": "udgatā",
+            "pattern": [
+                "L L G L G L L L G L",
+                "L L L L L G L G L G",
+                "G L L L L L L G L L G",
+                "L L G L G L L L G L G L G"
+            ]
+        }
     ]
 }

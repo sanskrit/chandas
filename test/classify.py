@@ -29,3 +29,20 @@ def test_samavrtta(full_classifier):
            """
     assert full_classifier.classify(data).name == u'mandākrānta'
 
+
+def test_ardhasamavrtta(full_classifier):
+    data = """
+           muravErivapustanutAM mudaM
+           hemaniBAMSukacaMdanaliptam .
+           gaganaM capalAmilitaM yaTA
+           SAradanIraDarErupacitram ..
+           """
+    assert full_classifier.classify(data).name == u'upacitram'
+
+
+def test_vishamavrtta(full_classifier):
+    data = """
+           aTa vAsavasya vacanena ruciravadanastrilocanam .
+           klAMtirahitamaBirADayituM viDivattapAMsi vidaDe DanaMjayaH ..
+           """
+    assert full_classifier.classify(data).name == u'udgatā'
