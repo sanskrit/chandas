@@ -51,4 +51,6 @@ class Classifier(object):
         for vrtta in self.padyas:
             if vrtta.regex.match(verse_scan):
                 return vrtta
+            if vrtta.partial_regex.match(verse_scan):
+                return vrtta
         return None

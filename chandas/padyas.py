@@ -51,6 +51,10 @@ class Vrtta(Padya):
                       scans[2], self._padanta_laghu(scans[3])]
         return re.compile(''.join(regex_list))
 
+    @property
+    def partial_regex(self):
+        return self.regex
+
 
 class Samavrtta(Vrtta):
 
@@ -60,6 +64,10 @@ class Samavrtta(Vrtta):
         assert len(pattern) == 1
         Vrtta.__init__(self, name, pattern * 4)
 
+    @property
+    def partial_regex(self):
+        return re.compile(self._padanta_laghu(self.scans[0]))
+
 
 class Ardhasamavrtta(Vrtta):
 
@@ -68,6 +76,10 @@ class Ardhasamavrtta(Vrtta):
     def __init__(self, name, pattern):
         assert len(pattern) == 2
         Vrtta.__init__(self, name, pattern * 2)
+
+    @property
+    def partial_regex(self):
+        return re.compile(self.scans[0] + self._padanta_laghu(self.scans[1]))
 
 
 class Vishamavrtta(Vrtta):

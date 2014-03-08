@@ -30,6 +30,11 @@ def test_samavrtta(full_classifier):
     assert full_classifier.classify(data).name == u'mandākrānta'
 
 
+def test_samavrtta_partial(full_classifier):
+    data = "snigDacCAyAtaruzu vasatiM rAmagiryASramezu"
+    assert full_classifier.classify(data).name == u'mandākrānta'
+
+
 def test_ardhasamavrtta(full_classifier):
     data = """
            muravErivapustanutAM mudaM
@@ -37,6 +42,11 @@ def test_ardhasamavrtta(full_classifier):
            gaganaM capalAmilitaM yaTA
            SAradanIraDarErupacitram ..
            """
+    assert full_classifier.classify(data).name == u'upacitram'
+
+
+def test_ardhasamavrtta_partial(full_classifier):
+    data = "muravErivapustanutAM mudaM hemaniBAMSukacaMdanaliptam"
     assert full_classifier.classify(data).name == u'upacitram'
 
 
