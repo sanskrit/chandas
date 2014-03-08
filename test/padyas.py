@@ -42,3 +42,15 @@ class TestVishamavrtta(object):
         v = Vishamavrtta(self.name, self.pattern)
         assert v.name == self.name
         assert v.scans == self.pattern
+
+
+class TestJati(object):
+
+    name = 'AryA'
+    counts = [12, 18, 12, 15]
+
+    def test_init(self):
+        v = Jati(self.name, [], self.counts)
+        assert v.name == self.name
+        assert v.scans == []
+        assert v.counts == self.counts

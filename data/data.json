@@ -50,5 +50,14 @@
                 "L L G L G L L L G L G L G"
             ]
         }
+    ],
+    "jati": [
+        {
+            "name": "āryā",
+            "pattern": [
+
+            ],
+            "counts": [12, 18, 12, 15]
+        }
     ]
 }

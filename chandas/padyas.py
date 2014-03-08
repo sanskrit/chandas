@@ -15,16 +15,6 @@ class Padya(object):
 
     """Abstract base class for a metrical form."""
 
-
-class Jati(Padya):
-
-    """Abstract class for moraic meters."""
-
-
-class Vrtta(Padya):
-
-    """Abstract class for syllabic meters."""
-
     def __init__(self, name, pattern):
         #: The name of the meter.
         self.name = name
@@ -32,8 +22,13 @@ class Vrtta(Padya):
         #: The scan for each pāda.
         self.scans = [self._clean(pada) for pada in pattern]
 
-    def __repr__(self):
+    def __unicode__(self):
         return "<{}('{}')>".format(self.__class__.__name__, self.name)
+
+
+class Vrtta(Padya):
+
+    """Abstract class for syllabic meters."""
 
     @classmethod
     def _clean(self, data):
@@ -89,3 +84,12 @@ class Vishamavrtta(Vrtta):
     def __init__(self, name, pattern):
         assert len(pattern) == 4
         Vrtta.__init__(self, name, pattern)
+
+
+class Jati(Padya):
+
+    """Abstract class for moraic meters."""
+
+    def __init__(self, name, pattern, counts):
+        Padya.__init__(self, name, pattern * 4)
+        self.counts = counts

@@ -16,8 +16,9 @@ def full_classifier():
 
 
 def test_init():
-    classifier = Classifier([])
-    assert classifier.padyas == []
+    classifier = Classifier()
+    assert classifier.vrttas == []
+    assert classifier.jatis == []
 
 
 def test_samavrtta(full_classifier):
@@ -56,3 +57,43 @@ def test_vishamavrtta(full_classifier):
            klAMtirahitamaBirADayituM viDivattapAMsi vidaDe DanaMjayaH ..
            """
     assert full_classifier.classify(data).name == u'udgatā'
+
+
+def test_jati_laghu_laghu(full_classifier):
+    data = """
+           yenAmandamarande daladaravinde dinAnyanAyizata .
+           kuwaje Kalu tenehA tenehA maDukareRa kaTa ..
+           """
+    assert full_classifier.classify(data).name == u'āryā'
+
+
+def test_jati_laghu_guru(full_classifier):
+    data = """
+           yenAmandamarande daladaravinde dinAnyanAyizata .
+           kuwaje Kalu tenehA tenehA maDukareRa kaTam ..
+           """
+    assert full_classifier.classify(data).name == u'āryā'
+
+
+def test_jati_guru_laghu(full_classifier):
+    data = """
+           yenAmandamarande daladaravinde dinAnyanAyizatA .
+           kuwaje Kalu tenehA tenehA maDukareRa kaTa ..
+           """
+    assert full_classifier.classify(data).name == u'āryā'
+
+
+def test_jati_guru_guru(full_classifier):
+    data = """
+           yenAmandamarande daladaravinde dinAnyanAyizatA .
+           kuwaje Kalu tenehA tenehA maDukareRa kaTam ..
+           """
+    assert full_classifier.classify(data).name == u'āryā'
+
+
+def test_jati_false_positive_pada_a(full_classifier):
+    data = """
+           yenAmandamarandale daravinde dinAnyanAyizata .
+           kuwaje Kalu tenehA tenehA maDukareRa kaTam ..
+           """
+    assert full_classifier.classify(data) is None
