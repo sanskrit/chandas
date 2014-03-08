@@ -1,69 +1,336 @@
-{
-    "samavrtta": [
-        {
-            "name": "upajāti",
-            "pattern": [
-                "L G L G G L L G L G G"
-            ]
-        },
-        {
-            "name": "mandākrānta",
-            "pattern": [
-                "G G G G | L L L L L G | G L G G L G G"
-            ]
-        },
-        {
-            "name": "vaṃśastham",
-            "pattern": [
-                "L G L G G G L G L G L G"
-            ]
-        },
-        {
-            "name": "śārdūlavikrīḍitam",
-            "pattern": [
-                "G G G L L G L G L L L G | G G L G G L G"
-            ]
-        },
-        {
-            "name": "śloka",
-            "pattern": [
-                ". . . . . . . ."
-            ]
-        },
-        {
-            "name": "sragdharā",
-            "pattern": [
-                "G G G G L G G | L L L L L L G | G L G G L G G"
-            ]
-        }
-    ],
-    "ardhasamavrtta": [
-        {
-            "name": "upacitram",
-            "pattern": [
-                "L L G L L G L L G L G",
-                "G L L G L L G L L G G"
-            ]
-        }
-    ],
-    "vishamavrtta": [
-        {
-            "name": "udgatā",
-            "pattern": [
-                "L L G L G L L L G L",
-                "L L L L L G L G L G",
-                "G L L L L L L G L L G",
-                "L L G L G L L L G L G L G"
-            ]
-        }
-    ],
-    "jati": [
-        {
-            "name": "āryā",
-            "pattern": [
-
-            ],
-            "counts": [12, 18, 12, 15]
-        }
+[
+  {
+    "name": "gajagati",
+    "pattern": ["LLLG|LLLG"]
+  },
+  {
+    "name": "pramāṇikā",
+    "pattern": ["LGLG|LGLG"]
+  },
+  {
+    "name": "māṇavaka",
+    "pattern": ["GLLG|GLLG"]
+  },
+  {
+    "name": "vidyunmālā",
+    "pattern": ["GGGG|GGGG"]
+  },
+  {
+    "name": "samānikā",
+    "pattern": ["GLGL|GLGL"]
+  },
+  {
+    "name": "bhujagaśiśubhṛtā",
+    "pattern": ["LLLLLLG|GG"]
+  },
+  {
+    "name": "bhujaṅgasaṃgatā",
+    "pattern": ["LLG|LGLGLG"]
+  },
+  {
+    "name": "maṇimadhya",
+    "pattern": ["GLLGG|GLLG"]
+  },
+  {
+    "name": "tvaritagati",
+    "pattern": ["LLLLG|LLLLG"]
+  },
+  {
+    "name": "mattā",
+    "pattern": ["GGGG|LLLLGG"]
+  },
+  {
+    "name": "rukmavatī",
+    "pattern": ["GLLGG|GLLGG"]
+  },
+  {
+    "name": "indravajrā",
+    "pattern": ["GGLGG|LLGLGG"]
+  },
+  {
+    "name": "upendravajrā",
+    "pattern": ["LGLGG|LLGLGG"]
+  },
+  {
+    "name": "dodhaka",
+    "pattern": ["GLLGLL|GLLG"]
+  },
+  {
+    "name": "bhramaravilasita",
+    "pattern": ["GGGGL|LLLLLG"]
+  },
+  {
+    "name": "rathoddhatā",
+    "pattern": ["GLG|LLLGLGLG"]
+  },
+  {
+    "name": "śālinī",
+    "pattern": ["GGGG|GLGGLGG"]
+  },
+  {
+    "name": "svāgatā",
+    "pattern": ["GLG|LLLGLLGG"]
+  },
+  {
+    "name": "vaṃśastha",
+    "pattern": ["LGLGG|LLGLGLG"]
+  },
+  {
+    "name": "indravaṃśā",
+    "pattern": ["GGLGG|LLGLGLG"]
+  },
+  {
+    "name": "candravartma",
+    "pattern": ["GLGL|LLGLLLLG"]
+  },
+  {
+    "name": "jaladharamālā",
+    "pattern": ["GGGG|LLLLGGGG"]
+  },
+  {
+    "name": "jaloddhatagati",
+    "pattern": ["LGLLLG|LGLLLG"]
+  },
+  {
+    "name": "tāmarasa",
+    "pattern": ["LLLLL|LLGLLGG"]
+  },
+  {
+    "name": "toṭaka",
+    "pattern": ["LLGLLGLLGLLG"]
+  },
+  {
+    "name": "drutavilambita",
+    "pattern": ["LLLGLLGLLGLG"]
+  },
+  {
+    "name": "mandākinī",
+    "pattern": ["LLLLLLG|LGGLG"]
+  },
+  {
+    "name": "pramitākṣarā",
+    "pattern": ["LLGLG|LLLGLLG"]
+  },
+  {
+    "name": "bhujaṅgaprayāta",
+    "pattern": ["LGGLGG|LGGLGG"]
+  },
+  {
+    "name": "maṇimālā",
+    "pattern": ["GGLLGG|GGLLGG"]
+  },
+  {
+    "name": "mālatī",
+    "pattern": ["LLLLG|LLGLGLG"]
+  },
+  {
+    "name": "vaiśvadevī",
+    "pattern": ["GGGGG|GLGGLGG"]
+  },
+  {
+    "name": "sragviṇī",
+    "pattern": ["GLGGLG|GLGGLG"]
+  },
+  {
+    "name": "kalahaṃsa",
+    "pattern": ["LLGLGLL|LGLLGG"]
+  },
+  {
+    "name": "kṣamā",
+    "pattern": ["LLLLLLG|GLGGLG"]
+  },
+  {
+    "name": "praharṣiṇī",
+    "pattern": ["GGG|LLLLGLGLGG"]
+  },
+  {
+    "name": "mañjubhāṣiṇī",
+    "pattern": ["LLGLGL|LLGLGLG"]
+  },
+  {
+    "name": "mattamayūrī",
+    "pattern": ["GGGG|GLLGGLLGG"]
+  },
+  {
+    "name": "rucira",
+    "pattern": ["LGLG|LLLLGLGLG"]
+  },
+  {
+    "name": "aparājitā",
+    "pattern": ["LLLLLLG|LGLLGLG"]
+  },
+  {
+    "name": "asambādhā",
+    "pattern": ["GGGGG|LLLLLLGGG"]
+  },
+  {
+    "name": "praharaṇakalikā",
+    "pattern": ["LLLLLLG|LLLLLLG"]
+  },
+  {
+    "name": "madhyakṣāmā",
+    "pattern": ["GGGG|LLLLLLGGGG"]
+  },
+  {
+    "name": "vasantatilakā",
+    "pattern": ["GGLGLLLG|LLGLGG"]
+  },
+  {
+    "name": "vāsantī",
+    "pattern": ["GGGG|GLLLLG|GGGG"]
+  },
+  {
+    "name": "tūṇaka",
+    "pattern": ["GLGLGLG|LGLGLGLG"]
+  },
+  {
+    "name": "mālinī",
+    "pattern": ["LLLLLLGG|GLGGLGG"]
+  },
+  {
+    "name": "līlāKela",
+    "pattern": ["GGGGGGGGGGGGGGG"]
+  },
+  {
+    "name": "śaśikalā",
+    "pattern": ["LLLLLLL|LLLLLLLG"]
+  },
+  {
+    "name": "citra",
+    "pattern": ["GLGLGLGL|GLGLGLGG"]
+  },
+  {
+    "name": "pañcacāmara",
+    "pattern": ["LGLGLGLG|LGLGLGLG"]
+  },
+  {
+    "name": "vāṇinī",
+    "pattern": ["LLLLGLGLLLGLGLGG"]
+  },
+  {
+    "name": "nardaṭaka",
+    "pattern": ["LLLLGLGL|LLGLLGLLG"]
+  },
+  {
+    "name": "pṛthvī",
+    "pattern": ["LGLLLGLG|LLLGLGGLG"]
+  },
+  {
+    "name": "mandākrāntā",
+    "pattern": ["GGGG|LLLLLG|GLGGLGG"]
+  },
+  {
+    "name": "vaṃśapatrapatita",
+    "pattern": ["GLLGLGLLLG|LLLLLLG"]
+  },
+  {
+    "name": "śikhariṇī",
+    "pattern": ["LGGGGG|LLLLLGGLLLG"]
+  },
+  {
+    "name": "hariṇī",
+    "pattern": ["LLLLLG|GGGG|LGLLGLG"]
+  },
+  {
+    "name": "citralekhā",
+    "pattern": ["GGGG|LLLLLLG|GLGGLGG"]
+  },
+  {
+    "name": "nandana",
+    "pattern": ["LLLLGLGLLLG|LGLGGLG"]
+  },
+  {
+    "name": "nārāca",
+    "pattern": ["LLLLLLGL|GGLGG|LGGLG"]
+  },
+  {
+    "name": "meghavisphūrjitā",
+    "pattern": ["LGGGGG|LLLLLG|GLGGLGG"]
+  },
+  {
+    "name": "śārdūlavikrīḍita",
+    "pattern": ["GGGLLGLGLLLG|GGLGGLG"]
+  },
+  {
+    "name": "sumadhurā",
+    "pattern": ["GGGGLGG|LLLLLG|GGLLLG"]
+  },
+  {
+    "name": "gītikā",
+    "pattern": ["LLGLG|LLGLGLL|GLGLLGLG"]
+  },
+  {
+    "name": "suvadanā",
+    "pattern": ["GGGGLGG|LLLLLLG|GGGGLG"]
+  },
+  {
+    "name": "sarasī",
+    "pattern": ["LLLLGLGLLLGLLGLLGLGLG"]
+  },
+  {
+    "name": "sragdharā",
+    "pattern": ["GGGGLGG|LLLLLLG|GLGGLGG"]
+  },
+  {
+    "name": "madirā",
+    "pattern": ["GLLGLLGLLGLLGLLGLLGLLG"]
+  },
+  {
+    "name": "haṃsī",
+    "pattern": ["GGGGGGGG|LLLLLLLLLLLLGG"]
+  },
+  {
+    "name": "adritanayā",
+    "pattern": ["LLLLGLGLLLGLGLLLGLGLLLG"]
+  },
+  {
+    "name": "śloka",
+    "pattern": [
+      ". . . . . . . ."
     ]
-}
+  },
+  {
+    "name": "upacitram",
+    "pattern": [
+      "L L G L L G L L G L G",
+      "G L L G L L G L L G G"
+    ]
+  },
+  {
+    "name": "puṣpitāgrā",
+    "pattern": [
+      "L L L L L L G L G L G G",
+      "L L L L G L L G L G L G G"
+    ]
+  },
+  {
+    "name": "mālabhāriṇī",
+    "pattern": [
+      "L L G L L G L G L G G",
+      "L L G G L L G L G L G G"
+    ]
+  },
+  {
+    "name": "viyoginī",
+    "pattern": [
+      "L L G L L G L G L G",
+      "L L G G L L G L G L G"
+    ]
+  },
+  {
+    "name": "udgatā",
+    "pattern": [
+      "L L G L G L L L G L",
+      "L L L L L G L G L G",
+      "G L L L L L L G L L G",
+      "L L G L G L L L G L G L G"
+    ]
+  },
+  {
+    "name": "āryā",
+    "pattern": [
+
+    ],
+    "counts": [12, 18, 12, 15]
+  }
+]

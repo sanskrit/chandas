@@ -28,12 +28,12 @@ def test_samavrtta(full_classifier):
            yakSazcakre janakatanayAsnAnapuRyodakezu
            snigDacCAyAtaruzu vasatiM rAmagiryASramezu .. 1 ..
            """
-    assert full_classifier.classify(data).name == u'mandākrānta'
+    assert full_classifier.classify(data).name == u'mandākrāntā'
 
 
 def test_samavrtta_partial(full_classifier):
     data = "snigDacCAyAtaruzu vasatiM rAmagiryASramezu"
-    assert full_classifier.classify(data).name == u'mandākrānta'
+    assert full_classifier.classify(data).name == u'mandākrāntā'
 
 
 def test_ardhasamavrtta(full_classifier):
@@ -68,12 +68,12 @@ def test_shloka(full_classifier):
 
 
 def test_shloka_partial(full_classifier):
-    data = 'kA' * 8
+    data = 'kekake kekakekeke'
     assert full_classifier.classify(data).name == u'śloka'
 
 
 def test_shloka_partial_false_positive(full_classifier):
-    data = 'kA' * 9
+    data = 'ke' * 9
     assert full_classifier.classify(data) is None
 
 

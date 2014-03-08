@@ -22,6 +22,8 @@ class Padya(object):
         #: The scan for each pāda.
         self.scans = [self._clean(pada) for pada in pattern]
 
+        self.num_syllables = sum(len(x) for x in self.scans)
+
     def __unicode__(self):
         return "<{}('{}')>".format(self.__class__.__name__, self.name)
 

@@ -31,20 +31,24 @@ class Classifier(object):
         with open(path) as f:
             data = json.load(f)
 
-            class_map = {
-                'samavrtta': Samavrtta,
-                'ardhasamavrtta': Ardhasamavrtta,
-                'vishamavrtta': Vishamavrtta,
-                'jati': Jati,
-            }
             vrttas = []
             jatis = []
-            for category, catalog in data.iteritems():
-                padyas = (class_map[category](**item) for item in catalog)
-                if category == 'jati':
-                    jatis.extend(padyas)
+            for datum in data:
+                len_pattern = len(datum['pattern'])
+                if len_pattern == 1:
+                    cls = Samavrtta
+                elif len_pattern == 2:
+                    cls = Ardhasamavrtta
+                elif len_pattern == 4:
+                    cls = Vishamavrtta
+                elif datum.get('counts'):
+                    cls = Jati
+
+                padya = cls(**datum)
+                if cls is Jati:
+                    jatis.append(padya)
                 else:
-                    vrttas.extend(padyas)
+                    vrttas.append(padya)
             return Classifier(vrttas=vrttas, jatis=jatis)
 
     def classify(self, raw):
@@ -58,8 +62,12 @@ class Classifier(object):
         for vrtta in self.vrttas:
             if vrtta.regex.match(verse_scan):
                 return vrtta
+
+        for vrtta in self.vrttas:
+            if vrtta.num_syllables < len(verse_scan):
+                continue
             if vrtta.partial_regex.match(verse_scan):
-                if vrtta.name == u'śloka' and len(verse_scan) % 8:
+                if vrtta.num_syllables % len(verse_scan):
                     continue
                 return vrtta
 
