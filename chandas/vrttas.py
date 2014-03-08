@@ -15,14 +15,40 @@ class Vrtta(object):
 
     """Abstract base class for any metrical form"""
 
-
-class Samavrtta(Vrtta):
-
-    """A meter in which each line has the same syllable pattern."""
-
     def __init__(self, name, pattern):
         #: The name of the meter.
         self.name = name
 
         #: The scan for each pāda.
-        self.pada_scan = [re.sub('[^LG]', '', x) for x in pattern] * 4
+        self.pada_scan = [self._clean(pada) for pada in pattern]
+
+    @classmethod
+    def _clean(self, data):
+        return re.sub('[^LG]', '', data)
+
+
+class Samavrtta(Vrtta):
+
+    """Represents a type of sama-vṛtta."""
+
+    def __init__(self, name, pattern):
+        assert len(pattern) == 1
+        Vrtta.__init__(self, name, pattern * 4)
+
+
+class Ardhasamavrtta(Vrtta):
+
+    """Represents a type of ardha-sama-vṛtta."""
+
+    def __init__(self, name, pattern):
+        assert len(pattern) == 2
+        Vrtta.__init__(self, name, pattern * 2)
+
+
+class Vishamavrtta(Vrtta):
+
+    """Represents a type of viṣama-vṛtta."""
+
+    def __init__(self, name, pattern):
+        assert len(pattern) == 4
+        Vrtta.__init__(self, name, pattern)
