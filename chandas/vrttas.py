@@ -3,7 +3,7 @@
     chandas.vrttas
     ~~~~~~~~~~~~~~
 
-    TODO: write description
+    Classes for representing various metrical forms.
 
     :license: MIT and BSD
 """
@@ -12,10 +12,14 @@ import re
 
 
 class Vrtta(object):
-    pass
+
+    """Abstract base class for any metrical form"""
 
 
 class Samavrtta(Vrtta):
+
+    """A meter in which each line has the same syllable pattern."""
+
     def __init__(self, name, pattern):
         #: The name of the meter.
         self.name = name
