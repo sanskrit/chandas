@@ -1,0 +1,34 @@
+{
+    "samavrtta": [
+        {
+            "name": "upajāti",
+            "pattern": [
+                "L G L G G L L G L G G"
+            ]
+        },
+        {
+            "name": "mandākrānta",
+            "pattern": [
+                "G G G G | L L L L L G | G L G G L G G"
+            ]
+        },
+        {
+            "name": "vaṃśastham",
+            "pattern": [
+                "L G L G G G L G L G L G"
+            ]
+        },
+        {
+            "name": "śārdūlavikrīḍitam",
+            "pattern": [
+                "G G G L L G L G L L L G | G G L G G L G"
+            ]
+        },
+        {
+            "name": "sragdharā",
+            "pattern": [
+                "G G G G L G G | L L L L L L G | G L G G L G G"
+            ]
+        }
+    ]
+}

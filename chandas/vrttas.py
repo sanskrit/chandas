@@ -13,18 +13,28 @@ import re
 
 class Vrtta(object):
 
-    """Abstract base class for any metrical form"""
+    """Abstract base class for a metrical form."""
 
     def __init__(self, name, pattern):
         #: The name of the meter.
         self.name = name
 
         #: The scan for each pāda.
-        self.pada_scan = [self._clean(pada) for pada in pattern]
+        self.scans = [self._clean(pada) for pada in pattern]
 
     @classmethod
     def _clean(self, data):
         return re.sub('[^LG]', '', data)
+
+    def __repr__(self):
+        return "<{}('{}')>".format(self.__class__.__name__, self.name)
+
+    @property
+    def regex(self):
+        """Return a regex to test if some input matches the vrtta."""
+        odd = self.scans[0]
+        even = self.scans[0][:-1] + '[LG]'
+        return re.compile(odd + even + odd + even)
 
 
 class Samavrtta(Vrtta):
