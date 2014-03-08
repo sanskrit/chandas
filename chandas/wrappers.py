@@ -22,7 +22,8 @@ class Line(object):
     """
 
     def __init__(self, raw=None, **kw):
-        self.raw = raw
+        self._raw = raw
+
 
     @property
     def clean(self):
@@ -30,8 +31,11 @@ class Line(object):
 
         That includes whitespace, too!
         """
-        clean = re.sub('[^%s]+' % SLP.ALL, '', self.raw)
-        return clean
+        try:
+            return self._clean
+        except AttributeError:
+            self._clean = re.sub('[^%s]+' % SLP.ALL, '', self.raw)
+            return self._clean
 
     @property
     def ends_with_laghu(self):
@@ -69,11 +73,20 @@ class Line(object):
         return sum(1 if x == 'L' else 2 for x in self.scan)
 
     @property
+    def raw(self):
+        return self._raw
+
+    @property
     def scan(self):
         """Return the metrical scan of the line.
 
         Line-final laghu vowels are scanned as laghu.
         """
+        try:
+            return self._data
+        except AttributeError:
+            pass
+
         cons = SLP.CONSONANTS
         short_v = SLP.SHORT_VOWELS
         long_v = SLP.LONG_VOWELS
@@ -91,6 +104,7 @@ class Line(object):
         # Convert to normal symbols
         data = data.replace('_', Weights.HEAVY).replace('.', Weights.LIGHT)
 
+        self._data = data
         return data
 
     @property
