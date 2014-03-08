@@ -136,95 +136,96 @@ class TestLineMatraCount(MeterTest):
 
 class TestLineScan(MeterTest):
 
-    def check(self, raw, result):
-        return Line(raw).scan == result
+    def func(self, raw):
+        return Line(raw).scan
 
     def test_empty(self):
-        self.yes('', '')
+        assert self.func('') == ''
 
     def test_consonant_without_vowels(self):
-        self.yes('k', '')
+        assert self.func('k') == ''
 
     def test_short_vowels_light(self):
-        yes = self.yes
-
+        f = self.func
         for v in self.short_v:
             # Plain
-            yes(v, 'L')
+            assert f(v) == 'L'
 
             # Preceded by consonants
-            yes('kr' + v, 'L')
+            assert f('kr' + v) == 'L'
 
     def test_short_vowels_heavy(self):
-        yes = self.yes
-
+        f = self.func
         for v in self.short_v:
             # Followed by 'MH'
-            yes(v + 'M', 'G')
-            yes(v + 'H', 'G')
+            assert f(v + 'M') == 'G'
+            assert f(v + 'H') == 'G'
 
             # Followed by single consonant
-            yes(v + 'm', 'G')
+            assert f(v + 'm') == 'G'
 
             # Followed by conjunct
-            yes(v + 'rv', 'G')
+            assert f(v + 'rv') == 'G'
 
             # Surrounded
-            yes('kr' + v + 'H', 'G')
-            yes('kr' + v + 'm', 'G')
-            yes('kr' + v + 'rv', 'G')
+            assert f('kr' + v + 'H') == 'G'
+            assert f('kr' + v + 'm') == 'G'
+            assert f('kr' + v + 'rv') == 'G'
 
     def test_long_vowels_heavy(self):
-        yes = self.yes
-
+        f = self.func
         for v in self.long_v:
             # Plain
-            yes(v, 'G')
+            assert f(v) == 'G'
 
             # Followed by 'MH'
-            yes(v + 'H', 'G')
-            yes(v + 'M', 'G')
+            assert f(v + 'H') == 'G'
+            assert f(v + 'M') == 'G'
 
             # Followed by consonants
 
             # Preceded by consonants
-            yes('kr' + v, 'G')
+            assert f('kr' + v) == 'G'
 
             # Surrounded
-            yes('kr' + v + 'H', 'G')
-            yes('kr' + v + 'm', 'G')
-            yes('kr' + v + 'rv', 'G')
+            assert f('kr' + v + 'H') == 'G'
+            assert f('kr' + v + 'm') == 'G'
+            assert f('kr' + v + 'rv') == 'G'
 
     def test_words(self):
-        yes = self.yes
+        f = self.func
 
         # Initial short vowel, light
-        yes('hata', 'LL')
-        yes('hatO', 'LG')
-        yes('hataH', 'LG')
-        yes('hatam', 'LG')
+        assert f('hata') == 'LL'
+        assert f('hatO') == 'LG'
+        assert f('hataH') == 'LG'
+        assert f('hatam') == 'LG'
 
         # Initial short vowel, heavy (MH)
-        yes('kaMsa', 'GL')
-        yes('kaMsO', 'GG')
-        yes('kaMsaH', 'GG')
-        yes('kaMsam', 'GG')
+        assert f('kaMsa') == 'GL'
+        assert f('kaMsO') == 'GG'
+        assert f('kaMsaH') == 'GG'
+        assert f('kaMsam') == 'GG'
 
         # Initial short vowel, heavy (conjunct)
-        yes('sarpa', 'GL')
-        yes('sarpO', 'GG')
-        yes('sarpaH', 'GG')
-        yes('sarpam', 'GG')
+        assert f('sarpa') == 'GL'
+        assert f('sarpO') == 'GG'
+        assert f('sarpaH') == 'GG'
+        assert f('sarpam') == 'GG'
 
         # Initial long vowel
-        yes('nAda', 'GL')
-        yes('nAdO', 'GG')
-        yes('nAdaH', 'GG')
-        yes('nAdam', 'GG')
+        assert f('nAda') == 'GL'
+        assert f('nAdO') == 'GG'
+        assert f('nAdaH') == 'GG'
+        assert f('nAdam') == 'GG'
 
     def test_lines(self):
         token = 'kaScitkAntAvirahaguruRAsvADikArapramattaH'
-        self.yes(token, 'GGGGLLLLLGGLGGLGG')
+        assert self.func(token) == 'GGGGLLLLLGGLGGLGG'
+
+    def test_bad_lines(self):
+        assert self.func('taM iti') == 'LLL'
+        assert self.func('naraH iti') == 'LLLL'
 
 
 class TestLineStartsWithConjunct(MeterTest):

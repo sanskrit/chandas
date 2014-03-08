@@ -101,6 +101,8 @@ class Line(object):
         data = re.sub('[%s]([MH]|[%s]){2,}' % (short_v, cons), '_', data)
         # Short vowels without conjunct
         data = re.sub('[%s][%s]*' % (short_v, cons), '.', data)
+        # Remove any lingering characters (for malformed strings)
+        data = re.sub('[^_.]', '', data)
         # Convert to normal symbols
         data = data.replace('_', Weights.HEAVY).replace('.', Weights.LIGHT)
 
