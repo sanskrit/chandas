@@ -59,6 +59,8 @@ class Classifier(object):
             if vrtta.regex.match(verse_scan):
                 return vrtta
             if vrtta.partial_regex.match(verse_scan):
+                if vrtta.name == u'śloka' and len(verse_scan) % 8:
+                    continue
                 return vrtta
 
         totals = set()

@@ -32,19 +32,22 @@ class Vrtta(Padya):
 
     @classmethod
     def _clean(self, data):
-        return re.sub('[^LG]', '', data)
+        return re.sub('[^LG.]', '', data)
 
     @classmethod
     def _padanta_laghu(self, scan):
-        return scan[:-1] + '[LG]'
+        if scan.endswith(']'):
+            return scan
+        else:
+            return scan[:-1] + '[LG]'
 
     @property
     def regex(self):
         """Return a regex to test if some input matches the vrtta."""
-        scans = self.scans
+        scans = [x.replace('.', '[LG]') for x in self.scans]
         regex_list = [scans[0], self._padanta_laghu(scans[1]),
                       scans[2], self._padanta_laghu(scans[3])]
-        return re.compile(''.join(regex_list))
+        return re.compile(''.join(regex_list) + '$')
 
     @property
     def partial_regex(self):

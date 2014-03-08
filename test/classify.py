@@ -59,6 +59,24 @@ def test_vishamavrtta(full_classifier):
     assert full_classifier.classify(data).name == u'udgatā'
 
 
+def test_shloka(full_classifier):
+    data = """
+           vAgarTAviva saMpfktO vAgarTapratipattaye .
+           jagataH pitarO vande pArvatIparameSvarO .. 1 ..
+           """
+    assert full_classifier.classify(data).name == u'śloka'
+
+
+def test_shloka_partial(full_classifier):
+    data = 'kA' * 8
+    assert full_classifier.classify(data).name == u'śloka'
+
+
+def test_shloka_partial_false_positive(full_classifier):
+    data = 'kA' * 9
+    assert full_classifier.classify(data) is None
+
+
 def test_jati_laghu_laghu(full_classifier):
     data = """
            yenAmandamarande daladaravinde dinAnyanAyizata .

@@ -25,6 +25,12 @@
             ]
         },
         {
+            "name": "śloka",
+            "pattern": [
+                ". . . . . . . ."
+            ]
+        },
+        {
             "name": "sragdharā",
             "pattern": [
                 "G G G G L G G | L L L L L L G | G L G G L G G"
