@@ -10,6 +10,7 @@
 
 import json
 
+from .enums import Weights
 from .padyas import Ardhasamavrtta, Jati, Samavrtta, Vishamavrtta
 from .wrappers import Block
 
@@ -59,28 +60,31 @@ class Classifier(object):
         block = Block(raw)
         block_scan = ''.join(block.scan)
 
+        # Vṛtta (entire block)
+        # Exact regex match on the input scan.
         for vrtta in self.vrttas:
             if vrtta.regex.match(block_scan):
                 return vrtta
 
-        for vrtta in self.vrttas:
-            if vrtta.num_syllables < len(block_scan):
-                continue
-            if vrtta.partial_regex.match(block_scan):
-                if vrtta.num_syllables % len(block_scan):
-                    continue
-                return vrtta
-
+        # Jāti (entire block)
+        # Consider a *jāti* definition (a, b, c, d), where `a` denotes
+        # the *mātrā* length of *pāda* A. To verify the input, we check
+        # whether it is possible to divide the input into chunks of
+        # length `a`, `b`, `c` and `d`.
+        #
+        # However, *pāda* B can be either `b` or `b - 1` long, and
+        # likewise for *pāda* D.
+        #
+        # The algorithm first computes the *mātrā* length for all
+        # `scan[:i]`. After that, it's O(1) to check whether the input
+        # conforms to some *jāti*.
         totals = set()
         total = 0
-        for L in block_scan:
-            if L == 'L':
-                total += 1
-            else:
-                total += 2
+        for syllable in block_scan:
+            total += 1 if syllable == Weights.LIGHT else 2
             totals.add(total)
         for jati in self.jatis:
-            # `x` is the running sums up to the end of pada `x`
+            # `x` is the running sum up to the end of pada `x`
             a, b, c, d = jati.counts
             b += a
             c += b
@@ -95,4 +99,12 @@ class Classifier(object):
                     if d - 1 in totals or d - 2 in totals:
                         return jati
 
+        # Vṛtta (first pāda)
+        for vrtta in self.vrttas:
+            if vrtta.num_syllables < len(block_scan):
+                continue
+            if vrtta.partial_regex.match(block_scan):
+                if vrtta.num_syllables % len(block_scan):
+                    continue
+                return vrtta
         return None
