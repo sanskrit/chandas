@@ -43,12 +43,12 @@ def test_ardhasamavrtta(full_classifier):
            gaganaM capalAmilitaM yaTA
            SAradanIraDarErupacitram ..
            """
-    assert full_classifier.classify(data).name == u'upacitram'
+    assert full_classifier.classify(data).name == u'upacitra'
 
 
 def test_ardhasamavrtta_partial(full_classifier):
     data = "muravErivapustanutAM mudaM hemaniBAMSukacaMdanaliptam"
-    assert full_classifier.classify(data).name == u'upacitram'
+    assert full_classifier.classify(data).name == u'upacitra'
 
 
 def test_vishamavrtta(full_classifier):

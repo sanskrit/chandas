@@ -285,37 +285,35 @@
   },
   {
     "name": "śloka",
-    "pattern": [
-      ". . . . . . . ."
-    ]
+    "pattern": [". . . . . . . ."]
   },
   {
-    "name": "upacitram",
-    "pattern": [
-      "L L G L L G L L G L G",
-      "G L L G L L G L L G G"
-    ]
+    "name": "upacitra",
+    "pattern":["LLGLLGLLGLG", "GLLGLLGLLGG"]
+  },
+  {
+    "name": "aparavaktra",
+    "pattern": ["LLLLLLGLGLG", "LLLLGLLGLGLG"]
   },
   {
     "name": "puṣpitāgrā",
-    "pattern": [
-      "L L L L L L G L G L G G",
-      "L L L L G L L G L G L G G"
-    ]
+    "pattern": ["LLLLLLGLGLGG", "LLLLGLLGLGLGG"]
   },
   {
     "name": "mālabhāriṇī",
-    "pattern": [
-      "L L G L L G L G L G G",
-      "L L G G L L G L G L G G"
-    ]
+    "pattern": ["LLGLLGLGLGG", "LLGGLLGLGLGG"]
   },
   {
     "name": "viyoginī",
-    "pattern": [
-      "L L G L L G L G L G",
-      "L L G G L L G L G L G"
-    ]
+    "pattern": ["LLGLLGLGLG", "LLGGLLGLGLG"]
+  },
+  {
+    "name": "vegavatī",
+    "pattern": ["LLGLLGLLGG", "GLLGLLGLLG"]
+  },
+  {
+    "name": "hariṇapluta",
+    "pattern": ["LLGLLGLLGLG", "LLLGLLGLLGLG"]
   },
   {
     "name": "udgatā",
@@ -328,9 +326,7 @@
   },
   {
     "name": "āryā",
-    "pattern": [
-
-    ],
+    "pattern": [],
     "counts": [12, 18, 12, 15]
   }
 ]
