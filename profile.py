@@ -1,4 +1,4 @@
-from chandas.classify import Classifier
+from chandas import Classifier
 
 classifier = Classifier.from_json_file('data/data.json')
 
