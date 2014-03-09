@@ -10,7 +10,7 @@
 
 import re
 
-from chandas.enums import SLP, Weights
+from .enums import SLP, Weights
 
 
 class Line(object):
