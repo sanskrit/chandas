@@ -288,6 +288,10 @@
     "pattern": [". . . . . . . ."]
   },
   {
+    "name": "upajāti",
+    "pattern": [". G L G G L L G L G ."]
+  },
+  {
     "name": "upacitra",
     "pattern":["LLGLLGLLGLG", "GLLGLLGLLGG"]
   },
