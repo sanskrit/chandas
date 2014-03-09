@@ -11,7 +11,7 @@
 import json
 
 from .padyas import Ardhasamavrtta, Jati, Samavrtta, Vishamavrtta
-from .wrappers import Verse
+from .wrappers import Block
 
 
 class Classifier(object):
@@ -56,24 +56,24 @@ class Classifier(object):
 
         :param raw: an input string
         """
-        verse = Verse(raw)
-        verse_scan = ''.join(verse.scan)
+        block = Block(raw)
+        block_scan = ''.join(block.scan)
 
         for vrtta in self.vrttas:
-            if vrtta.regex.match(verse_scan):
+            if vrtta.regex.match(block_scan):
                 return vrtta
 
         for vrtta in self.vrttas:
-            if vrtta.num_syllables < len(verse_scan):
+            if vrtta.num_syllables < len(block_scan):
                 continue
-            if vrtta.partial_regex.match(verse_scan):
-                if vrtta.num_syllables % len(verse_scan):
+            if vrtta.partial_regex.match(block_scan):
+                if vrtta.num_syllables % len(block_scan):
                     continue
                 return vrtta
 
         totals = set()
         total = 0
-        for L in verse_scan:
+        for L in block_scan:
             if L == 'L':
                 total += 1
             else:

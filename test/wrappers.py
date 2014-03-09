@@ -274,7 +274,7 @@ class TestLineSyllables(MeterTest):
         yes('kArtsnyam', 'kA rtsnyam')
 
 
-class TestVerseScan(MeterTest):
+class TestBlockScan(MeterTest):
 
     megh_1_1 = """
         kaScitkAntAvirahaguruRAsvADikArapramattaH
@@ -284,7 +284,7 @@ class TestVerseScan(MeterTest):
         """
 
     def check(self, raw, result):
-        return Verse(raw).scan == result
+        return Block(raw).scan == result
 
     def test_empty(self):
         self.yes('', [])

@@ -136,7 +136,7 @@ class Line(object):
         return items
 
 
-class Verse(object):
+class Block(object):
 
     """Handles multiple lines of metrical text."""
 
