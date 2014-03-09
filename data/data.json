@@ -288,8 +288,12 @@
     "pattern": [". . . . . . . ."]
   },
   {
-    "name": "upajāti",
+    "name": "upajāti (indravajrā, upendravajrā)",
     "pattern": [". G L G G L L G L G ."]
+  },
+  {
+    "name": "upajāti (indravaṃśā, vaṃśastha)",
+    "pattern": [". G L G G L L G L G L ."]
   },
   {
     "name": "upacitra",
