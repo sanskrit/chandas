@@ -36,14 +36,16 @@ class Classifier(object):
             jatis = []
             for datum in data:
                 len_pattern = len(datum['pattern'])
-                if len_pattern == 1:
+                if datum.get('counts'):
+                    cls = Jati
+                elif len_pattern == 1:
                     cls = Samavrtta
                 elif len_pattern == 2:
                     cls = Ardhasamavrtta
                 elif len_pattern == 4:
                     cls = Vishamavrtta
-                elif datum.get('counts'):
-                    cls = Jati
+                else:
+                    raise NotImplementedError
 
                 padya = cls(**datum)
                 if cls is Jati:
