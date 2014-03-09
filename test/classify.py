@@ -15,98 +15,94 @@ def full_classifier():
     return Classifier.from_json_file(json_path)
 
 
+@pytest.fixture
+def classify(full_classifier):
+    """Helper fixture for testing a block."""
+    def tester(data):
+        return full_classifier.classify(data).name
+    return tester
+
+
+@pytest.fixture
+def classify_line(full_classifier):
+    """Helper fixture for testing a line."""
+    def tester(data):
+        return full_classifier.classify_lines(data)[0][1].name
+    return tester
+
+
 def test_init():
     classifier = Classifier()
     assert classifier.vrttas == []
     assert classifier.jatis == []
 
 
-def test_samavrtta(full_classifier):
+def test_samavrtta(classify):
     data = """
         kaScit kAntAvirahaguruRA svADikArapramattaH
         zApenAstaMgamitamahimA varzaBogyeRa BartuH .
         yakSazcakre janakatanayAsnAnapuRyodakezu
         snigDacCAyAtaruzu vasatiM rAmagiryASramezu .. 1 ..
         """
-    assert full_classifier.classify(data).name == u'mandākrāntā'
+    assert classify(data) == u'mandākrāntā'
 
 
-def test_samavrtta_partial(full_classifier):
-    data = "snigDacCAyAtaruzu vasatiM rAmagiryASramezu"
-    assert full_classifier.classify(data).name == u'mandākrāntā'
-
-
-def test_ardhasamavrtta(full_classifier):
+def test_ardhasamavrtta(classify):
     data = """
         muravErivapustanutAM mudaM
         hemaniBAMSukacaMdanaliptam .
         gaganaM capalAmilitaM yaTA
         SAradanIraDarErupacitram ..
         """
-    assert full_classifier.classify(data).name == u'upacitra'
+    assert classify(data) == u'upacitra'
 
 
-def test_ardhasamavrtta_partial(full_classifier):
-    data = "muravErivapustanutAM mudaM hemaniBAMSukacaMdanaliptam"
-    assert full_classifier.classify(data).name == u'upacitra'
-
-
-def test_vishamavrtta(full_classifier):
+def test_vishamavrtta(classify):
     data = """
         aTa vAsavasya vacanena ruciravadanastrilocanam .
         klAMtirahitamaBirADayituM viDivattapAMsi vidaDe DanaMjayaH ..
         """
-    assert full_classifier.classify(data).name == u'udgatā'
+    assert classify(data) == u'udgatā'
 
 
-def test_shloka(full_classifier):
+def test_shloka(classify):
     data = """
         vAgarTAviva saMpfktO vAgarTapratipattaye .
         jagataH pitarO vande pArvatIparameSvarO .. 1 ..
         """
-    assert full_classifier.classify(data).name == u'śloka'
+    assert classify(data) == u'śloka'
 
 
-def test_shloka_partial(full_classifier):
-    data = 'kekake kekakekeke'
-    assert full_classifier.classify(data).name == u'śloka'
-
-
-def test_shloka_partial_false_positive(full_classifier):
-    data = 'ke' * 9
-    assert full_classifier.classify(data) is None
-
-
-def test_jati_laghu_laghu(full_classifier):
+def test_jati_laghu_laghu(classify):
     data = """
         yenAmandamarande daladaravinde dinAnyanAyizata .
         kuwaje Kalu tenehA tenehA maDukareRa kaTa ..
         """
-    assert full_classifier.classify(data).name == u'āryā'
+    assert classify(data) == u'āryā'
 
 
-def test_jati_laghu_guru(full_classifier):
+def test_jati_laghu_guru(classify):
     data = """
         yenAmandamarande daladaravinde dinAnyanAyizata .
         kuwaje Kalu tenehA tenehA maDukareRa kaTam ..
         """
-    assert full_classifier.classify(data).name == u'āryā'
+    assert classify(data) == u'āryā'
 
 
-def test_jati_guru_laghu(full_classifier):
+def test_jati_guru_laghu(classify):
     data = """
         yenAmandamarande daladaravinde dinAnyanAyizatA .
         kuwaje Kalu tenehA tenehA maDukareRa kaTa ..
         """
-    assert full_classifier.classify(data).name == u'āryā'
+    assert classify(data) == u'āryā'
 
 
-def test_jati_guru_guru(full_classifier):
+def test_jati_guru_guru(classify):
     data = """
         yenAmandamarande daladaravinde dinAnyanAyizatA .
         kuwaje Kalu tenehA tenehA maDukareRa kaTam ..
         """
-    assert full_classifier.classify(data).name == u'āryā'
+    assert classify(data) == u'āryā'
 
 
 def test_jati_false_positive_pada_a(full_classifier):
@@ -115,3 +111,24 @@ def test_jati_false_positive_pada_a(full_classifier):
         kuwaje Kalu tenehA tenehA maDukareRa kaTam ..
         """
     assert full_classifier.classify(data) is None
+
+
+def test_samavrtta_line(classify_line):
+    data = "snigDacCAyAtaruzu vasatiM rAmagiryASramezu"
+    assert classify_line(data) == u'mandākrāntā'
+
+
+def test_ardhasamavrtta_line(classify_line):
+    data = "muravErivapustanutAM mudaM hemaniBAMSukacaMdanaliptam"
+    assert classify_line(data) == u'upacitra'
+
+
+def test_vishamavrtta_line(classify_line):
+    data = ("aTa vAsavasya vacanena ruciravadanastrilocanam ."
+        "klAMtirahitamaBirADayituM viDivattapAMsi vidaDe DanaMjayaH ..")
+    assert classify_line(data) == u'udgatā'
+
+
+def test_shloka_line(classify_line):
+    data = 'kekake kekakekeke'
+    assert classify_line(data) == u'śloka'

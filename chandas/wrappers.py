@@ -22,8 +22,10 @@ class Line(object):
     """
 
     def __init__(self, raw=None, **kw):
-        self._raw = raw
+        self._raw = raw.strip()
 
+    def __repr__(self):
+        return "<Line('{}')>".format(self._raw.strip())
 
     @property
     def clean(self):

@@ -62,13 +62,13 @@ class Classifier(object):
         block = Block(raw)
         block_scan = ''.join(block.scan)
 
-        # Vṛtta (entire block)
+        # Vṛtta
         # Exact regex match on the input scan.
         for vrtta in self.vrttas:
             if vrtta.regex.match(block_scan):
                 return vrtta
 
-        # Jāti (entire block)
+        # Jāti
         # Consider a *jāti* definition (a, b, c, d), where `a` denotes
         # the *mātrā* length of *pāda* A. To verify the input, we check
         # whether it is possible to divide the input into chunks of
@@ -101,12 +101,26 @@ class Classifier(object):
                     if d - 1 in totals or d - 2 in totals:
                         return jati
 
-        # Vṛtta (first pāda)
-        for vrtta in self.vrttas:
-            if vrtta.num_syllables < len(block_scan):
-                continue
-            if vrtta.partial_regex.match(block_scan):
-                if vrtta.num_syllables % len(block_scan):
-                    continue
-                return vrtta
         return None
+
+    def classify_lines(self, raw):
+        """Classify the lines in some block individually.
+
+        This should be used only if `classify` could not parse the
+        input string.
+
+        The pādas need to be passed together in one string; the weight
+        at the end of a pāda is affected by how the next pāda starts.
+
+        :param raw: an input string
+        """
+        padas = []
+        block = Block(raw)
+        line_scan_pairs = zip(block.lines, block.scan)
+        for line, scan in line_scan_pairs:
+            for vrtta in self.vrttas:
+                match = vrtta.partial_regex.match(scan)
+                if match and len(match.group(0)) == len(scan):
+                    padas.append((line, vrtta))
+                    break
+        return padas
