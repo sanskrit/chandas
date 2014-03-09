@@ -11,6 +11,24 @@
 import re
 
 
+class cached_property(object):
+
+    def __init__(self, func):
+        self.__name__ = func.__name__
+        self.__module__ = func.__module__
+        self.__doc__ = func.__doc__
+        self.func = func
+
+    def __get__(self, obj, type=None):
+        if obj is None:
+            return self
+        odict = obj.__dict__
+        name = self.__name__
+        if name not in odict:
+            odict[name] = self.func(obj)
+        return odict[name]
+
+
 class Padya(object):
 
     """Abstract base class for a metrical form."""
@@ -43,7 +61,7 @@ class Vrtta(Padya):
         else:
             return scan[:-1] + '[LG]'
 
-    @property
+    @cached_property
     def regex(self):
         """Return a regex to test if some input matches the vrtta."""
         scans = [x.replace('.', '[LG]') for x in self.scans]
@@ -64,7 +82,7 @@ class Samavrtta(Vrtta):
         assert len(pattern) == 1
         Vrtta.__init__(self, name, pattern * 4)
 
-    @property
+    @cached_property
     def partial_regex(self):
         return re.compile(self._padanta_laghu(self.scans[0]))
 
@@ -77,7 +95,7 @@ class Ardhasamavrtta(Vrtta):
         assert len(pattern) == 2
         Vrtta.__init__(self, name, pattern * 2)
 
-    @property
+    @cached_property
     def partial_regex(self):
         return re.compile(self.scans[0] + self._padanta_laghu(self.scans[1]))
 

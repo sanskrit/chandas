@@ -83,7 +83,7 @@ class Line(object):
         Line-final laghu vowels are scanned as laghu.
         """
         try:
-            return self._data
+            return self._scan
         except AttributeError:
             pass
 
@@ -106,7 +106,7 @@ class Line(object):
         # Convert to normal symbols
         data = data.replace('_', Weights.HEAVY).replace('.', Weights.LIGHT)
 
-        self._data = data
+        self._scan = data
         return data
 
     @property
