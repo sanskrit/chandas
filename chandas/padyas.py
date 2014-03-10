@@ -40,6 +40,7 @@ class Padya(object):
         #: The scan for each pāda.
         self.scans = [self._clean(pada) for pada in pattern]
 
+        #: The number of syllables in the verse.
         self.num_syllables = sum(len(x) for x in self.scans)
 
     def __unicode__(self):

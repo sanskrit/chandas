@@ -274,7 +274,7 @@ class TestLineSyllables(MeterTest):
         yes('kArtsnyam', 'kA rtsnyam')
 
 
-class TestBlockScan(MeterTest):
+class BlockTest(MeterTest):
 
     megh_1_1 = """
         kaScitkAntAvirahaguruRAsvADikArapramattaH
@@ -282,6 +282,14 @@ class TestBlockScan(MeterTest):
         yakzaScakre janakatanayAsnAnapuRyodakezu
         snigDacCAyAtaruzu vasatiM rAmagiryASramezu .. 1 ..
         """
+
+    bg_1_1 = """
+        Darmakzetre kurukzetre samavetA yuyutsavaH .
+        mAmakAH pARqavAScEva kimakurvata saMjaya  .. 1 ..
+        """
+
+
+class TestBlockScan(BlockTest):
 
     def check(self, raw, result):
         return Block(raw).scan == result
@@ -293,3 +301,13 @@ class TestBlockScan(MeterTest):
         scan = ['GGGGLLLLLGGLGGLGG'] * 4
         scan[-1] = scan[-1][:-1] + 'L'
         self.yes(self.megh_1_1, scan)
+
+
+class TestBlockSyllables(BlockTest):
+
+    def test_basic(self):
+        expected = """Da rma kze tre ku ru kze tre
+            sa ma ve tA yu yu tsa vaH
+            mA ma kAH pA Rqa vA ScE va
+            ki ma ku rva ta saM ja ya""".split()
+        assert list(expected) == Block(self.bg_1_1).syllables

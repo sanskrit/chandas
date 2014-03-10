@@ -42,7 +42,7 @@ class Line(object):
     @property
     def ends_with_laghu(self):
         """Return whether the line ends with a light syllable."""
-        return self.scan and self.scan[-1] == Weights.LIGHT
+        return self.scan and self.scan[-1] == Weights.LAGHU
 
     @property
     def gana(self):
@@ -106,7 +106,7 @@ class Line(object):
         # Remove any lingering characters (for malformed strings)
         data = re.sub('[^_.]', '', data)
         # Convert to normal symbols
-        data = data.replace('_', Weights.HEAVY).replace('.', Weights.LIGHT)
+        data = data.replace('_', Weights.GURU).replace('.', Weights.LAGHU)
 
         self._scan = data
         return data
@@ -140,13 +140,18 @@ class Line(object):
 
 class Block(object):
 
-    """Handles multiple lines of metrical text."""
+    """Handles multiple lines of metrical text.
+
+    This automatically cleans the raw input and makes sure that the
+    other code in the package is using clean input.
+    """
 
     def __init__(self, raw):
+        #: The raw input.
         self.raw = raw
 
-        clean_lines = [x for x in raw.strip().splitlines() if x]
-        self.lines = [Line(x) for x in clean_lines]
+        #: A list of `Line` objects.
+        self.lines = [Line(x) for x in raw.strip().splitlines() if x]
 
     @property
     def scan(self):
@@ -165,8 +170,12 @@ class Block(object):
 
             odd_pada = i % 2 == 0
             if odd_pada and x.ends_with_laghu and next_is_conjunct:
-                returned.append(x.scan[:-1] + Weights.HEAVY)
+                returned.append(x.scan[:-1] + Weights.GURU)
             else:
                 returned.append(x.scan)
 
         return returned
+
+    @property
+    def syllables(self):
+        return [s for line in self.lines for s in line.syllables]

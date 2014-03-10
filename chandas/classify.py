@@ -12,7 +12,7 @@ import json
 
 from .enums import Weights
 from .padyas import Ardhasamavrtta, Jati, Samavrtta, Vishamavrtta
-from .wrappers import Block
+from .wrappers import Block, Line
 
 
 class Classifier(object):
@@ -25,7 +25,7 @@ class Classifier(object):
 
     @classmethod
     def from_json_file(self, path):
-        """Create a Classifier from some JSON file.
+        """Create a classifier from some JSON file.
 
         :param path: path to some JSON file.
         """
@@ -54,10 +54,46 @@ class Classifier(object):
                     vrttas.append(padya)
             return Classifier(vrttas=vrttas, jatis=jatis)
 
+    @classmethod
+    def split_into_padas(self, raw, padya):
+        block = Block(raw)
+
+        # Jāti
+        if hasattr(padya, 'counts'):
+            matras = []
+            scan = ''.join(block.scan)
+            for syllable, weight in zip(block.syllables, scan):
+                matras.append(syllable)
+                if weight == Weights.GURU:
+                    matras.append('')
+            a, b, c, d = padya.counts
+            b += a
+            if matras[b - 1]:
+                b -= 1
+            c += b
+
+            groups = [matras[:a], matras[a:b], matras[b:c], matras[c:]]
+            return [Line(''.join(x)) for x in groups]
+
+        # Vṛtta
+        else:
+            padas = []
+            offset = 0
+            syllables = block.syllables
+            for scan in padya.scans:
+                length = len(scan)
+                padas.append(Line(''.join(syllables[offset:offset+len(scan)])))
+                offset += length
+            return padas
+
     def classify(self, raw):
         """Identify the meter of some input.
 
+        This returns a `Padya`, or ``None`` if the meter couldn't be
+        determined.
+
         :param raw: an input string
+        :rtype: a `Padya`
         """
         block = Block(raw)
         block_scan = ''.join(block.scan)
@@ -83,7 +119,7 @@ class Classifier(object):
         totals = set()
         total = 0
         for syllable in block_scan:
-            total += 1 if syllable == Weights.LIGHT else 2
+            total += 1 if syllable == Weights.LAGHU else 2
             totals.add(total)
         for jati in self.jatis:
             # `x` is the running sum up to the end of pada `x`

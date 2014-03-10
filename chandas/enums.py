@@ -35,10 +35,10 @@ class Weights:
     """Stores syllable weights."""
 
     #: Denotes a heavy syllable ('guru')
-    HEAVY = 'G'
+    GURU = 'G'
 
     #: Denotes a light syllable ('laghu')
-    LIGHT = 'L'
+    LAGHU = 'L'
 
     #: Denotes an arbitrary syllable
     EITHER = '.'
