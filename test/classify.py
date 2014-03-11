@@ -123,25 +123,30 @@ def test_jati_false_positive_pada_a(full_classifier):
     assert full_classifier.classify(data) is None
 
 
-def test_samavrtta_line(classify_line):
+def test_classify_line_samavrtta(classify_line):
     data = "snigDacCAyAtaruzu vasatiM rAmagiryASramezu"
     assert classify_line(data) == u'mandākrāntā'
 
 
-def test_ardhasamavrtta_line(classify_line):
+def test_classify_line_ardhasamavrtta(classify_line):
     data = "muravErivapustanutAM mudaM hemaniBAMSukacaMdanaliptam"
     assert classify_line(data) == u'upacitra'
 
 
-def test_vishamavrtta_line(classify_line):
+def test_classify_line_vishamavrtta(classify_line):
     data = ("aTa vAsavasya vacanena ruciravadanastrilocanam ."
         "klAMtirahitamaBirADayituM viDivattapAMsi vidaDe DanaMjayaH ..")
     assert classify_line(data) == u'udgatā'
 
 
-def test_shloka_line(classify_line):
+def test_classify_line_shloka(classify_line):
     data = 'kekake kekakekeke'
     assert classify_line(data) == u'śloka'
+
+
+def test_classify_line_unknown(full_classifier):
+    data = 'ka'
+    assert full_classifier.classify_lines(data)[0][1] is None
 
 
 def test_split_into_padas_vrtta(full_classifier, megh_1_1):

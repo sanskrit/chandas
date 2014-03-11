@@ -154,9 +154,13 @@ class Classifier(object):
         block = Block(raw)
         line_scan_pairs = zip(block.lines, block.scan)
         for line, scan in line_scan_pairs:
+            appended = False
             for vrtta in self.vrttas:
                 match = vrtta.partial_regex.match(scan)
                 if match and len(match.group(0)) == len(scan):
                     padas.append((line, vrtta))
+                    appended = True
                     break
+            if not appended:
+                padas.append((line, None))
         return padas
