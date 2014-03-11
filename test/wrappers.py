@@ -311,3 +311,18 @@ class TestBlockSyllables(BlockTest):
             mA ma kAH pA Rqa vA ScE va
             ki ma ku rva ta saM ja ya""".split()
         assert list(expected) == Block(self.bg_1_1).syllables
+
+
+class TestIterBlocks(object):
+
+    def test_iter(self):
+        raw = (
+            "  This is a block.\n\n"
+            "This is another block.\n    \n"
+            "This is a third block."
+        )
+        blocks = list(iter_blocks(raw))
+        assert [x.raw for x in blocks] == [
+            '  This is a block.',
+            'This is another block.',
+            'This is a third block.']

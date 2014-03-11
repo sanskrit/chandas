@@ -155,7 +155,7 @@ class Block(object):
 
     @property
     def scan(self):
-        """Return the metrical scan of the verse.
+        """Return the metrical scan of the blcok.
 
         Pāda-final laghu is scanned as guru if the pāda is odd and the
         next line starts with a conjunct. If the pāda is even, the laghu
@@ -179,3 +179,9 @@ class Block(object):
     @property
     def syllables(self):
         return [s for line in self.lines for s in line.syllables]
+
+
+def iter_blocks(raw):
+    """Iterator over the block in some raw input."""
+    for blob in re.split(r'\n\s*\n', raw):
+        yield Block(blob)
