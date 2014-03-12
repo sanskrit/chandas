@@ -18,12 +18,21 @@ The code supports any of the following metrical forms:
 Quickstart
 ----------
 
-    from chandas.classify import Classifier
+    from chandas import Classifier
     classifier = Classifier.from_json_file('data/data.json')
 
-    result = classifier.classify('kaScit kAntAvirahaguruRA svADikArapramattaH')
+    data = """
+        kaScit kAntAvirahaguruRA svADikArapramattaH
+        SApenAstaMgamitamahimA varzaBogyeRa BartuH .
+        yakzaScakre janakatanayAsnAnapuRyodakezu
+        snigDacCAyAtaruzu vasatiM rAmagiryASramezu .. 1 ..
+        """
+
+    result = classifier.classify(data)
     assert result and result.name == u'mandākrāntā'
 
+The classifier works in SLP1, so you must transliterate all data to that
+format before passing it to the classifier.
 
 Testing (requires [pytest][pytest])
 -----------------------------------
